@@ -24,7 +24,13 @@ class Conexao {
     public static function getInstance() {
 
         if (!isset(self::$instance)) {
-            self::$instance = new \PDO(self::$connectURL, self::$user, self::$password);
+            try {
+                self::$instance = new \PDO(self::$connectURL, self::$user, self::$password);
+                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch( PDOException $pe) {
+                die("Erro ao criar objeto PDO: " . $pe->getMessage());
+                return false;
+            }
         }
 
         return self::$instance;
