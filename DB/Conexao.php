@@ -7,7 +7,7 @@ class Conexao {
     private static $instance;
 
     // Dados de acesso MySQL
-    private static $connectURL = "mysql:dbname=rucedro;host=127.0.0.1";
+    private static $connectURL = "mysql:dbname=locadora;host=127.0.0.1";
     private static $user = 'root';
     private static $password = '';
 
@@ -26,7 +26,7 @@ class Conexao {
         if (!isset(self::$instance)) {
             try {
                 self::$instance = new \PDO(self::$connectURL, self::$user, self::$password);
-                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             } catch( PDOException $pe) {
                 die("Erro ao criar objeto PDO: " . $pe->getMessage());
                 return false;
